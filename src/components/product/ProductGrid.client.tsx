@@ -15,63 +15,65 @@ export function ProductGrid({
   console.log('URL', url);
   console.log('COLLECTION', collection);
   const nextButtonRef = useRef(null);
+
   const initialProducts = collection?.products?.nodes || [];
+  console.log('CinitialProducts:::', initialProducts);
   const {hasNextPage, endCursor} = collection?.products?.pageInfo ?? {};
   // const [products, setProducts] = useState<Product[]>(initialProducts);
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [cursor, setCursor] = useState(endCursor ?? '');
   const [nextPage, setNextPage] = useState(hasNextPage);
-  const [pending, setPending] = useState(false);
+  // const [pending, setPending] = useState(false);
   const haveProducts = initialProducts.length > 0;
 
-  const fetchProducts = useCallback(async () => {
-    setPending(true);
-    const postUrl = new URL(window.location.origin + url);
-    postUrl.searchParams.set('cursor', cursor);
+  // const fetchProducts = useCallback(async () => {
+  //   setPending(true);
+  //   const postUrl = new URL(window.location.origin + url);
+  //   postUrl.searchParams.set('cursor', cursor);
 
-    const response = await fetch(postUrl, {
-      method: 'POST',
-    });
-    const {data} = await response.json();
+  //   const response = await fetch(postUrl, {
+  //     method: 'POST',
+  //   });
+  //   const {data} = await response.json();
 
-    // ProductGrid can paginate collection, products and search routes
-    // @ts-ignore TODO: Fix types
-    const newProducts: Product[] = flattenConnection<Product>(
-      data?.collection?.products || data?.products || [],
-    );
-    const {endCursor, hasNextPage} = data?.collection?.products?.pageInfo ||
-      data?.products?.pageInfo || {endCursor: '', hasNextPage: false};
+  //   // ProductGrid can paginate collection, products and search routes
+  //   // @ts-ignore TODO: Fix types
+  //   const newProducts: Product[] = flattenConnection<Product>(
+  //     data?.collection?.products || data?.products || [],
+  //   );
+  //   const {endCursor, hasNextPage} = data?.collection?.products?.pageInfo ||
+  //     data?.products?.pageInfo || {endCursor: '', hasNextPage: false};
 
-    setProducts([...products, ...newProducts]);
-    setCursor(endCursor);
-    setNextPage(hasNextPage);
-    setPending(false);
-  }, [cursor, url, products]);
+  //   setProducts([...products, ...newProducts]);
+  //   setCursor(endCursor);
+  //   setNextPage(hasNextPage);
+  //   setPending(false);
+  // }, [cursor, url, products]);
 
-  const handleIntersect = useCallback(
-    (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // fetchProducts();
-        }
-      });
-    },
-    [fetchProducts],
-  );
+  // const handleIntersect = useCallback(
+  //   (entries: IntersectionObserverEntry[]) => {
+  //     entries.forEach((entry) => {
+  //       if (entry.isIntersecting) {
+  //         // fetchProducts();
+  //       }
+  //     });
+  //   },
+  //   [fetchProducts],
+  // );
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(handleIntersect, {
-      rootMargin: '100%',
-    });
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(handleIntersect, {
+  //     rootMargin: '100%',
+  //   });
 
-    const nextButton = nextButtonRef.current;
+  //   const nextButton = nextButtonRef.current;
 
-    if (nextButton) observer.observe(nextButton);
+  //   if (nextButton) observer.observe(nextButton);
 
-    return () => {
-      if (nextButton) observer.unobserve(nextButton);
-    };
-  }, [nextButtonRef, cursor, handleIntersect]);
+  //   return () => {
+  //     if (nextButton) observer.unobserve(nextButton);
+  //   };
+  // }, [nextButtonRef, cursor, handleIntersect]);
 
   if (!haveProducts) {
     return (
@@ -83,11 +85,11 @@ export function ProductGrid({
       </>
     );
   }
-
+  console.log('PRODUCTS', products);
   return (
     <>
       <Grid layout="products">
-        {products.map((product, i) => (
+        {initialProducts.map((product, i) => (
           <ProductCard
             key={product.id}
             product={product}

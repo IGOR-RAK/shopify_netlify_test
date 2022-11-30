@@ -41,6 +41,8 @@ export default function Filter({params, search}: HydrogenRouteProps) {
     preload: false,
   });
 
+
+
   if (!collection) {
     return <NotFound type="collection" />;
   }
