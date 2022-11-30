@@ -46,7 +46,7 @@ export function ProductSwimlane({
 
 function ProductCards({products}: {products: Product[]}) {
   return (
-    <>
+    <div>   
       {products.map((product) => (
         <ProductCard
           product={product}
@@ -54,7 +54,7 @@ function ProductCards({products}: {products: Product[]}) {
           className={'snap-start w-80'}
         />
       ))}
-    </>
+    </div>
   );
 }
 

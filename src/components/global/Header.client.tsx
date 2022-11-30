@@ -20,6 +20,7 @@ import type {EnhancedMenu} from '~/lib/utils';
  * A client component that specifies the content of the header on the website
  */
 export function Header({title, menu}: {title: string; menu?: EnhancedMenu}) {
+  // console.log("menu:", menu)
   const {pathname} = useUrl();
 
   const localeMatch = /^\/([a-z]{2})(\/|$)/i.exec(pathname);
@@ -36,7 +37,7 @@ export function Header({title, menu}: {title: string; menu?: EnhancedMenu}) {
   const {
     isOpen: isMenuOpen,
     openDrawer: openMenu,
-    closeDrawer: closeMenu,
+    closeDrawer: closeMenu, 
   } = useDrawer();
 
   return (

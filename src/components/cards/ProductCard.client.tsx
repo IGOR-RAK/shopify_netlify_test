@@ -55,6 +55,7 @@ export function ProductCard({
   return (
     <Link onClick={onClick} to={`/products/${product.handle}`}>
       <div className={styles}>
+        
         <div className="card-image aspect-[4/5] bg-primary/5">
           <Text
             as="label"

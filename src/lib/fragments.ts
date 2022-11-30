@@ -42,7 +42,13 @@ export const PRODUCT_CARD_FRAGMENT = gql`
     id
     title
     publishedAt
+    productType
+    vendor
     handle
+    clothingSex: metafield(namespace: "custom", key: "product_intro_line") {
+      value
+      type
+    }
     variants(first: 1) {
       nodes {
         id

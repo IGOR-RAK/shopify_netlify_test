@@ -1,4 +1,4 @@
-// Demo store placeholders
+  // Demo store placeholders
 const PLACEHOLDERS = {
   HEROS: [
     // primaryHero

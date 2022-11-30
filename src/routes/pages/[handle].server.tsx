@@ -35,13 +35,14 @@ export default function Page({params}: HydrogenRouteProps) {
       resourceId: page.id,
     },
   });
-
+ 
   return (
     <Layout>
       <Suspense>
         <Seo type="page" data={page} />
       </Suspense>
       <PageHeader heading={page.title}>
+        {page.id === 'gid://shopify/Page/106193125655' && <div>Yoo</div>}
         <div
           dangerouslySetInnerHTML={{__html: page.body}}
           className="prose dark:prose-invert"

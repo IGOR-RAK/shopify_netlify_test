@@ -40,7 +40,7 @@ function App({request}: HydrogenRouteProps) {
         <Seo
           type="defaultSeo"
           data={{
-            title: 'Hydrogen',
+            title: 'Sklep internetowy',
             description:
               "A custom storefront powered by Hydrogen, Shopify's React-based framework for building headless.",
             titleTemplate: `%s · Hydrogen`,

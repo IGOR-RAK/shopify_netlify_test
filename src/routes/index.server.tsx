@@ -66,9 +66,9 @@ function HomepageContent() {
 
   return (
     <>
-      {primaryHero && (
+      {/* {primaryHero && (
         <Hero {...primaryHero} height="full" top loading="eager" />
-      )}
+      )} */}
       <ProductSwimlane
         data={featuredProducts.nodes}
         title="Featured Products"

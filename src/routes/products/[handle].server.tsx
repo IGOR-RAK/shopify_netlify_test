@@ -29,7 +29,7 @@ export default function Product() {
     language: {isoCode: languageCode},
     country: {isoCode: countryCode},
   } = useLocalization();
-
+ 
   const {
     data: {product, shop},
   } = useShopQuery({
@@ -41,11 +41,11 @@ export default function Product() {
     },
     preload: true,
   });
-
+ 
   if (!product) {
     return <NotFound type="product" />;
   }
-
+  
   const {media, title, vendor, descriptionHtml, id, productType} = product;
   const {shippingPolicy, refundPolicy} = shop;
   const {
