@@ -16,6 +16,7 @@ import {PRODUCT_CARD_FRAGMENT} from '~/lib/fragments';
 import {PageHeader, ProductGrid, Section, Text} from '~/components';
 import {NotFound, Layout} from '~/components/index.server';
 import {Filters} from '~/components/elements/Filter';
+import {Reload} from '~/components/elements/Reload.client';
 
 const pageBy = 48;
 
@@ -37,9 +38,9 @@ export default function Collection({params, search}: HydrogenRouteProps) {
       country,
       pageBy,
     },
-    preload: true,
+    preload: false,
   });
-
+ 
   if (!collection) {
     return <NotFound type="collection" />;
   }
@@ -56,8 +57,8 @@ export default function Collection({params, search}: HydrogenRouteProps) {
     (el: {productType: string}) => el.productType,
   );
   const uniqueProductTypes = [...new Set(productsTypes)];
-  console.log('uniqueProductTypes', uniqueProductTypes);
-  console.log('handle', handle);
+  // console.log('uniqueProductTypes', uniqueProductTypes);
+  // console.log('handle', handle);
   return (
     <Layout>
       <Suspense>
@@ -83,7 +84,7 @@ export default function Collection({params, search}: HydrogenRouteProps) {
       </Section>
       <Section>
         <Filters uniqueProductTypes={uniqueProductTypes} handle={handle} />
-      </Section>
+      </Section>    
     </Layout>
   );
 }

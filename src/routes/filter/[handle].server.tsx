@@ -30,14 +30,15 @@ export default function Filter({params, search}: HydrogenRouteProps) {
   const {
     data: {collection},
   } = useShopQuery({
-    query: COLLECTION_QUERY,
+    query: COLLECTION_FILTER_QUERY,
     variables: {
       handle,
       language,
       country,
       pageBy,
+      sex:"men's clothing",
     },
-    preload: true,
+    preload: false,
   });
 
   if (!collection) {
@@ -119,7 +120,7 @@ export default function Filter({params, search}: HydrogenRouteProps) {
 //   });
 // }
 
-const COLLECTION_QUERY = gql`
+const COLLECTION_FILTER_QUERY = gql`
   ${PRODUCT_CARD_FRAGMENT}
   query CollectionDetails(
     $handle: String!
@@ -127,6 +128,7 @@ const COLLECTION_QUERY = gql`
     $language: LanguageCode
     $pageBy: Int!
     $cursor: String
+    $sex: String
   ) @inContext(country: $country, language: $language) {
     collection(handle: $handle) {
       id
@@ -144,7 +146,7 @@ const COLLECTION_QUERY = gql`
         altText
       }
       products(first: $pageBy, after: $cursor,
-       filters: { productType: "women's clothing"
+       filters: { productType: $sex
        }
       # filters:{
       #   productMetafield:{

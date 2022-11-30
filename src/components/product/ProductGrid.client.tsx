@@ -12,9 +12,12 @@ export function ProductGrid({
   url: string;
   collection: Collection;
 }) {
+  console.log('URL', url);
+  console.log('COLLECTION', collection);
   const nextButtonRef = useRef(null);
   const initialProducts = collection?.products?.nodes || [];
   const {hasNextPage, endCursor} = collection?.products?.pageInfo ?? {};
+  // const [products, setProducts] = useState<Product[]>(initialProducts);
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [cursor, setCursor] = useState(endCursor ?? '');
   const [nextPage, setNextPage] = useState(hasNextPage);
@@ -49,7 +52,7 @@ export function ProductGrid({
     (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          fetchProducts();
+          // fetchProducts();
         }
       });
     },
@@ -98,14 +101,14 @@ export function ProductGrid({
           className="flex items-center justify-center mt-6"
           ref={nextButtonRef}
         >
-          <Button
+          {/* <Button
             variant="secondary"
             disabled={pending}
             onClick={fetchProducts}
             width="full"
           >
             {pending ? 'Loading...' : 'Load more products'}
-          </Button>
+          </Button> */}
         </div>
       )}
     </>
