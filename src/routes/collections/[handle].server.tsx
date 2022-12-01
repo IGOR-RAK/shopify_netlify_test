@@ -98,6 +98,7 @@ export async function api(
       status: 405,
       headers: {Allow: 'POST'},
     });
+    COLLECTION;
   }
   const url = new URL(request.url);
 

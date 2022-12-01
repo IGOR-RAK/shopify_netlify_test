@@ -12,12 +12,12 @@ export function ProductGrid({
   url: string;
   collection: Collection;
 }) {
-  console.log('URL', url);
-  console.log('COLLECTION', collection);
+  // console.log('URL', url);
+  // console.log('COLLECTION', collection);
   const nextButtonRef = useRef(null);
 
   const initialProducts = collection?.products?.nodes || [];
-  console.log('CinitialProducts:::', initialProducts);
+  // console.log('CinitialProducts:::', initialProducts);
   const {hasNextPage, endCursor} = collection?.products?.pageInfo ?? {};
   // const [products, setProducts] = useState<Product[]>(initialProducts);
   const [products, setProducts] = useState<Product[]>(initialProducts);
@@ -85,7 +85,7 @@ export function ProductGrid({
       </>
     );
   }
-  console.log('PRODUCTS', products);
+  // console.log('PRODUCTS', products);
   return (
     <>
       <Grid layout="products">

@@ -20,13 +20,13 @@ import {Filters} from '~/components/elements/Filter';
 const pageBy = 48;
 
 export default function Filter({params, search}: HydrogenRouteProps) {
-
   const {handle} = params;
   const {
     language: {isoCode: language},
     country: {isoCode: country},
   } = useLocalization();
-
+  search = search.substring(1).split('=')[1];
+  console.log('Search:::', search);
   const {
     data: {collection},
   } = useShopQuery({
@@ -36,12 +36,10 @@ export default function Filter({params, search}: HydrogenRouteProps) {
       language,
       country,
       pageBy,
-      sex:"men's clothing",
+      type: search,
     },
     preload: false,
   });
-
-
 
   if (!collection) {
     return <NotFound type="collection" />;
@@ -59,10 +57,10 @@ export default function Filter({params, search}: HydrogenRouteProps) {
     (el: {productType: string}) => el.productType,
   );
   const uniqueProductTypes = [...new Set(productsTypes)];
-  console.log("collection::::::", collection)
+  // console.log('collection::::::', collection);
   // console.log("collection.products.nodes::::::", collection.products.nodes)
-//  console.log(uniqueProductTypes);
-//  console.log('SEARCH IN FILTER', search, 'PARAMS IN FILTER', params);
+  //  console.log(uniqueProductTypes);
+  //  console.log('SEARCH IN FILTER', search, 'PARAMS IN FILTER', params);
   return (
     <Layout>
       <Suspense>
@@ -130,7 +128,7 @@ const COLLECTION_FILTER_QUERY = gql`
     $language: LanguageCode
     $pageBy: Int!
     $cursor: String
-    $sex: String
+    $type: String
   ) @inContext(country: $country, language: $language) {
     collection(handle: $handle) {
       id
@@ -147,18 +145,11 @@ const COLLECTION_FILTER_QUERY = gql`
         height
         altText
       }
-      products(first: $pageBy, after: $cursor,
-       filters: { productType: $sex
-       }
-      # filters:{
-      #   productMetafield:{
-      #     namespace:"custom",
-      #     key:"product_intro_line",
-      #     value:"women's clothing"
-      #   }
-      # }
-     
-       ) {
+      products(
+        first: $pageBy
+        after: $cursor
+        filters: {productType: $type} # filters:{ #   productMetafield:{ #     namespace:"custom", #     key:"product_intro_line", #     value:"women's clothing" #   } # }
+      ) {
         nodes {
           ...ProductCard
         }
