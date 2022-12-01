@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {Suspense} from 'react';
 import {
   gql,
@@ -16,7 +17,7 @@ import {PageHeader, ProductGrid, Section, Text} from '~/components';
 import {NotFound, Layout} from '~/components/index.server';
 import {Filters} from '~/components/elements/Filter';
 
-const pageBy = 48;
+const pageBy = 3;
 
 export default function Collection({params, search}: HydrogenRouteProps) {
   // console.log('SEARCH', search, 'PARAMS', params);
@@ -98,7 +99,6 @@ export async function api(
       status: 405,
       headers: {Allow: 'POST'},
     });
-    COLLECTION;
   }
   const url = new URL(request.url);
 

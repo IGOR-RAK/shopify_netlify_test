@@ -26,7 +26,7 @@ export default function Filter({params, search}: HydrogenRouteProps) {
     country: {isoCode: country},
   } = useLocalization();
   search = search.substring(1).split('=')[1];
-  console.log('Search:::', search);
+  // console.log('Search:::', search);
   const {
     data: {collection},
   } = useShopQuery({
@@ -78,14 +78,23 @@ export default function Filter({params, search}: HydrogenRouteProps) {
         )}
       </PageHeader>
       <Section>
-        <ProductGrid
+        {/* <ProductGrid
           key={collection.id}
           collection={collection}
           url={`/collections/${handle}?country=${country}`}
-        />
-      </Section>
-      <Section>
-        <Filters uniqueProductTypes={uniqueProductTypes} handle={handle} />
+        /> */}
+        <div className="flex">
+          <div className="w-1/5 justify-center">
+            <Filters uniqueProductTypes={uniqueProductTypes} handle={handle} />
+          </div>
+          <div>
+            <ProductGrid
+              key={collection.id}
+              collection={collection}
+              url={`/collections/${handle}?country=${country}`}
+            />
+          </div>
+        </div>
       </Section>
     </Layout>
   );
